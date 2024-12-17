@@ -1,7 +1,6 @@
 
 from  selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 
 
@@ -15,7 +14,7 @@ class SbisContactsPage:
         self.pic_xpath_prefix = 'html/body/div[1]/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div/div[1]/div/div[4]/div[2]/div '
         self.anchor_xpath_to_region = '//*[@id="container"]/div[1]/div/div[3]/div[2]/div[1]/div/div[2]/span/span'
         self.region_button_xpath = '//*[@id="popup"]/div[2]/div/div/div/div/div[2]/div/ul/li[{region_id}]/span/span'
-
+        self.region_partners = 'city-id-2'
 
 
     def open(self):
@@ -51,9 +50,16 @@ class SbisContactsPage:
         time.sleep(5)
 
     def select_region(self, region_id):
-        region_button_xpath = self.region_button_xpath.format(region_id=region_id)#il не совпадают
+        region_button_xpath = self.region_button_xpath.format(region_id=region_id)
         self.browser.find_element(By.XPATH, region_button_xpath).click()
         time.sleep(5)
 
     def get_current_url(self):
         return self.browser.current_url
+
+    def get_partners(self):
+        region_partners=self.browser.find_element(By.ID, self.region_partners)
+        return region_partners
+
+
+
